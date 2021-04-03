@@ -1,10 +1,10 @@
-const mdLinks = require('../');
+// const mdLinks = require('README.md');
 
 
-describe('mdLinks', () => {
+// describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
+//   it('should...', () => {
+//     console.log('FIX ME!');
+//   });
 
-});
+// });
