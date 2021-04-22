@@ -1,97 +1,152 @@
-# Markdown Links
+# Markdown Links 
+![Diagrama de flujo](https://github.com/WendySule/LIM014-mdlinks/blob/main/imgMdlinks/links.png?raw=true)
 
-## Índice
+## Descripción
 
-* [1. Preámbulo](#1-preámbulo)
-* [2. Diagrama de flujo](#2-diagrama-de-flujo)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-
-
-***
-
-## 1. Preámbulo
-
-[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
-ligero muy popular entre developers. Es usado en muchísimas plataformas que
-manejan texto plano (GitHub, foros, blogs, ...), y es muy común
-encontrar varios archivos en ese formato en cualquier tipo de repositorio
-(empezando por el tradicional `README.md`).
-
-Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
-muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
-la información que se quiere compartir.
-
-Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
-en formato `Markdown`, para verificar los links que contengan y reportar
-algunas estadísticas.
+Mdlinks es una librería que permite leer y analizar archivos en formato markdown para verificar los links que contengan y reportar algunas estadísticas.
 
 
-## 2. Diagrama de flujo
+## Diagramas de flujo 
+
 
 ![Diagrama de flujo](https://raw.githubusercontent.com/WendySule/LIM014-mdlinks/main/imgMdlinks/Flowchart.png) 
 
 
-## 3. Objetivos de aprendizaje
+## Instalación ⚙️
 
-Diseñar tu propia librería es una experiencia fundamental para cualquier
-desarrollador porque que te obliga a pensar en la interfaz (API) de tus
-_módulos_ y cómo será usado por otros developers. Debes tener especial
-consideración en peculiaridades del lenguaje, convenciones y buenas prácticas.
+npm install `https://github.com/WendySule/LIM014-mdlinks`
+ 
 
-A continuación puedes ver los objetivos de aprendizaje de este proyecto:
+### API `mdLinks(path, opts)`
 
-### JavaScript
+* El módulo exporta una función con la interfaz (API) esperada.
+* El módulo implementa :
+  *  soporte para archivo individual.
+  *  soporte para directorios.
+  *  `options.validate`
 
-* [ ] Uso de condicionales (if-else | switch | operador ternario)
-* [ ] [Uso de funciones (parámetros | argumentos | valor de retorno)](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Funciones)
-* [ ] [Manipular arrays (filter | map | sort | reduce)](https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209)
-* [ ] [Manipular objects (key | value)](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object)
-* [ ] Uso ES modules ([`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
-| [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export))
-* [ ] [Diferenciar entre expression y statements.](https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia)
-* [ ] [Diferenciar entre tipos de datos atómicos y estructurados.](https://developer.mozilla.org/es/docs/Web/JavaScript/Data_structures)
-* [ ] [Uso de callbacks.](https://developer.mozilla.org/es/docs/Glossary/Callback_function)
-* [ ] [Consumo de Promesas.](https://scotch.io/tutorials/javascript-promises-for-dummies#toc-consuming-promises)
-* [ ] [Creación de Promesas.](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
+### CLI
 
-### Node
+* Expone ejecutable `md-links` en el path (configurado en `package.json`)
+* Se ejecuta sin errores / output esperado
+* El ejecutable implementa:
+    *   `--validate` 
+    *   `--stats` 
+    *   `--validate` y `--stats` (juntos)
+  
+### JavaScript API 
 
-* [ ] Uso de sistema de archivos. ([fs](https://nodejs.org/api/fs.html), [path](https://nodejs.org/api/path.html))
-* [ ] Instalar y usar módulos. ([npm](https://www.npmjs.com/))
-* [ ] Creación de modules. [(CommonJS)](https://nodejs.org/docs/latest-v0.10.x/api/modules.html)
-* [ ] [Configuración de package.json.](https://docs.npmjs.com/files/package.json)
-* [ ] [Configuración de npm-scripts](https://docs.npmjs.com/misc/scripts)
-* [ ] Uso de CLI (Command Line Interface - Interfaz de Línea de Comando)
+El módulo debe poder importarse en otros scripts de Node.js y debe ofrecer la siguiente interfaz:
 
-### Testing
+#### `mdLinks(path, options)`
 
-* [ ] [Testeo unitario.](https://jestjs.io/docs/es-ES/getting-started)
-* [ ] [Testeo asíncrono.](https://jestjs.io/docs/es-ES/asynchronous)
-* [ ] [Uso de librerias de Mock.](https://jestjs.io/docs/es-ES/manual-mocks)
-* [ ] Uso de Mocks manuales.
-* [ ] Testeo para múltiples Sistemas Operativos.
+##### Argumentos
 
-### Estructura del código y guía de estilo
+* `path`: Ruta **absoluta** o **relativa** al archivo o directorio. Si la ruta pasada es
+  relativa, debe resolverse como relativa al directorio desde donde se invoca
+  node - _current working directory_).
+* `options`: Un objeto con **únicamente** la siguiente propiedad:
+  - `validate`: Booleano que determina si se desea validar los links
+    encontrados.
 
-* [ ] [Organizar y dividir el código en módulos (Modularización)](https://medium.com/@sebastianpaduano/modularizaci%C3%B3n-en-javascript-538bd6c75fa)
-* [ ] Uso de identificadores descriptivos ([Nomenclatura](http://snowdream.github.io/javascript-style-guide/javascript-style-guide/es/naming-conventions.html) | [Semántica](https://geekytheory.com/semantica-coder))
-* [ ] Uso de linter (ESLINT)
+##### Valor de retorno
 
-### Git y GitHub
+La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
+(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
+las siguientes propiedades:
 
-* [ ] [Uso de comandos de git (add | commit | pull | status | push)](https://github.com/jlord/git-it-electron)
-* [ ] Manejo de repositorios de GitHub (clone | fork | gh-pages)
-* [ ] Colaboración en Github (branches | pull requests | |[tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging))
-* [ ] Organización en Github (projects | issues | labels | milestones)
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
 
-### HTTP
+#### Ejemplo (resultados como comentarios)
 
-* [ ] Verbos HTTP ([http.get](https://nodejs.org/api/http.html#http_http_get_options_callback))
+```js
+const mdLinks = require("md-links");
 
-### Fundamentos de programación
+mdLinks("./some/example.md")
+  .then(links => {
+    // => [{ href, text, file }]
+  })
+  .catch(console.error);
 
-* [ ] [Recursión.](https://www.youtube.com/watch?v=lPPgY3HLlhQ)
+mdLinks("./some/example.md", { validate: true })
+  .then(links => {
+    // => [{ href, text, file, status, ok }]
+  })
+  .catch(console.error);
+
+mdLinks("./some/dir")
+  .then(links => {
+    // => [{ href, text, file }]
+  })
+  .catch(console.error);
+```
+
+### CLI (Command Line Interface - Interfaz de Línea de Comando)
+
+El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
+manera a través de la **terminal**:
+
+`md-links <path-to-file> [options]`
+
+Por ejemplo:
+
+```sh
+$ md-links ./some/example.md
+./some/example.md http://algo.com/2/3/ Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html algún doc
+./some/example.md http://google.com/ Google
+```
+
+El comportamiento por defecto no debe validar si las URLs responden ok o no,
+solo debe identificar el archivo markdown (a partir de la ruta que recibe como
+argumento), analizar el archivo Markdown e imprimir los links que vaya
+encontrando, junto con la ruta del archivo donde aparece y el texto
+que hay dentro del link (truncado a 50 caracteres).
+
+#### Options
+
+##### `--validate`
+
+Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para
+averiguar si el link funciona o no. Si el link resulta en una redirección a una
+URL que responde ok, entonces consideraremos el link como ok.
+
+Por ejemplo:
+
+```sh
+$ md-links ./some/example.md --validate
+./some/example.md http://algo.com/2/3/ ok 200 Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
+./some/example.md http://google.com/ ok 301 Google
+```
+
+Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de
+la URL, así como el status de la respuesta recibida a la petición HTTP a dicha
+URL.
+
+##### `--stats`
+
+Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
+básicas sobre los links.
+
+```sh
+$ md-links ./some/example.md --stats
+Total: 3
+Unique: 3
+```
+
+También podemos combinar `--stats` y `--validate` para obtener estadísticas que
+necesiten de los resultados de la validación.
+
+```sh
+$ md-links ./some/example.md --stats --validate
+Total: 3
+Unique: 3
+Broken: 1
+```
+
 
 <!-- *** -->
 
